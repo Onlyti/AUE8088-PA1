@@ -1,17 +1,21 @@
 import os
+import numpy as np
 
 # Training Hyperparameters
 NUM_CLASSES         = 200
-BATCH_SIZE          = 512
+BATCH_SIZE_LIST     = [4096]
+BATCH_SIZE          = 2048
+MEM_SIZE_MAX        = 4096
 VAL_EVERY_N_EPOCH   = 1
 
-NUM_EPOCHS          = 40
+NUM_EPOCHS          = 60
 OPTIMIZER_PARAMS    = {'type': 'SGD', 'lr': 0.005, 'momentum': 0.9}
-SCHEDULER_PARAMS    = {'type': 'MultiStepLR', 'milestones': [30, 35], 'gamma': 0.2}
+milstone_rate       = np.asarray([0.75, 0.9])
+SCHEDULER_PARAMS    = {'type': 'MultiStepLR', 'milestones': (NUM_EPOCHS*milstone_rate).astype(int), 'gamma': 0.5}
 
 # Dataaset
 DATASET_ROOT_PATH   = 'datasets/'
-NUM_WORKERS         = 8
+NUM_WORKERS         = 2
 
 # Augmentation
 IMAGE_ROTATION      = 20
